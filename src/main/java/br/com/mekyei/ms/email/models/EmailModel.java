@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class Email {
+@Table(name = "emails")
+public class EmailModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,23 @@ public class Email {
     private String conteudo;
     private LocalDateTime dataEnvio;
     private StatusEmail status;
+
+    public EmailModel() {
+    }
+
+    public EmailModel(
+            String proprietario,
+            String remetente,
+            String destinatario,
+            String assunto,
+            String conteudo) {
+
+        this.proprietario = proprietario;
+        this.remetente = remetente;
+        this.destinatario = destinatario;
+        this.assunto = assunto;
+        this.conteudo = conteudo;
+    }
 
     public long getId() {
         return id;
@@ -90,7 +108,7 @@ public class Email {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Email email = (Email) o;
+        EmailModel email = (EmailModel) o;
         return id == email.id;
     }
 

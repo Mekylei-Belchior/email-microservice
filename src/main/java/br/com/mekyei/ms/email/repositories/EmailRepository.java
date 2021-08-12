@@ -1,7 +1,7 @@
 package br.com.mekyei.ms.email.repositories;
 
-import br.com.mekyei.ms.email.models.Email;
+import br.com.mekyei.ms.email.models.EmailModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EmailRepository extends JpaRepository<Email, Long> {
+public interface EmailRepository extends JpaRepository<EmailModel, Long> {
 }

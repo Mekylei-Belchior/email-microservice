@@ -1,5 +1,7 @@
 package br.com.mekyei.ms.email.dtos;
 
+import br.com.mekyei.ms.email.models.EmailModel;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -56,5 +58,19 @@ public class EmailDto {
 
     public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
+    }
+
+    /**
+     * Converte objeto para EmailModel.
+     * @return objeto EmailModel.
+     */
+    public EmailModel toEmail() {
+        return new EmailModel(
+                this.proprietario,
+                this.remetente,
+                this.destinatario,
+                this.assunto,
+                this.conteudo
+        );
     }
 }
