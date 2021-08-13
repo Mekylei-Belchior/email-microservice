@@ -1,11 +1,17 @@
 package br.com.mekyei.ms.email.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "clientes")
-public class Cliente {
+public class Cliente implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +19,9 @@ public class Cliente {
     private String nome;
     private String email;
     private String senha;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Perfil> perfis = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -46,6 +55,14 @@ public class Cliente {
         this.senha = senha;
     }
 
+    public List<Perfil> getPerfis() {
+        return perfis;
+    }
+
+    public void setPerfis(List<Perfil> perfis) {
+        this.perfis = perfis;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,5 +74,45 @@ public class Cliente {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    /* Devolve o atributo de coleção contendo os perfis com as permissões de acesso do cliente */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.perfis;
+    }
+
+    /* Os dois métodos abaixo devolvem os dados de acesso do usuário */
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    /* Os métodos abaixo são utilizados para controle da conta do cliente.
+     * Será retornando true em função que este controle será implementado posteriomente, se necessário.
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
