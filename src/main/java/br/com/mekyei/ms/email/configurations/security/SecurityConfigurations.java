@@ -1,8 +1,10 @@
 package br.com.mekyei.ms.email.configurations.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -23,6 +25,15 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     private AutenticacaoService autenticacaoService;
 
     /**
+     * Cria o AuthenticationManager através do método da classe herdada.
+     */
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+    /**
      * Configurações de autenticação: realiza a autenticação dos clientes.
      */
     @Override
@@ -32,16 +43,15 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Configurações de autorização: controla o acesso através de perfis de acesso.
+     * Configurações de autorização: controla o acesso dos endpoints assim como os perfis de acesso.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/envia-email").authenticated()
+                .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
     }
 
     /**
