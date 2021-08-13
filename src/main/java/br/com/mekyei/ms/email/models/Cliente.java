@@ -23,6 +23,7 @@ public class Cliente implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 
+
     public long getId() {
         return id;
     }
