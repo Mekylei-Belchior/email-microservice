@@ -56,6 +56,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll() /* Requisicões para o endpoint não precisa de autenticação. */
+                .antMatchers(HttpMethod.GET, "/actuator/**").authenticated() /* Requisicões para o endpoint precisa de autenticação. */
                 .anyRequest().authenticated() /* Todas as demais requisições precisam de autenticação */
                 .and().csrf().disable() /* Desabilita o CSRF */
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) /* Define que a autenticação será realizada a cada requisição, via token e não por sessão. */
