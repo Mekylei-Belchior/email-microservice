@@ -33,7 +33,7 @@ public class AutenticacaoService implements UserDetailsService {
             return cliente.get();
         }
 
-        /* Caso os dados do cliente não tenha sido encotrados é lançado uma excessão. */
+        /* Caso os dados do cliente não tenha sido encotrados será lançada uma excessão. */
         throw new UsernameNotFoundException("Dados inválidos!");
     }
 }

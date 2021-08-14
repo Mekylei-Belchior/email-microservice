@@ -1,5 +1,6 @@
 package br.com.mekyei.ms.email.configurations.security;
 
+import br.com.mekyei.ms.email.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +12,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Classe para configurações de segurança da API.
@@ -23,6 +24,12 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AutenticacaoService autenticacaoService;
+
+    @Autowired
+    TokenService tokenService;
+
+    @Autowired
+    ClienteRepository clienteRepository;
 
     /**
      * Cria o AuthenticationManager através do método da classe herdada.
@@ -48,10 +55,11 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .antMatchers(HttpMethod.POST, "/auth").permitAll() /* Requisicões para o endpoint não precisa de autenticação. */
+                .anyRequest().authenticated() /* Todas as demais requisições precisam de autenticação */
+                .and().csrf().disable() /* Desabilita o CSRF */
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) /* Define que a autenticação será realizada a cada requisição, via token e não por sessão. */
+                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, clienteRepository), UsernamePasswordAuthenticationFilter.class); /* Adiciona o filtro de validação do token antes do filtro padrão. */
     }
 
     /**

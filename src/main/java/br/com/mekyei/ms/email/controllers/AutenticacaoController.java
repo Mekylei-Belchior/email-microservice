@@ -39,13 +39,13 @@ public class AutenticacaoController {
 
         /* Tenta validar os dados de acesso. Se houver sucesso, devolve o token. Caso contrário, BadRequest. */
         try {
-            /* Chama a classe (AutenticacaoService) que iria realizar o processo de autenticação */
+            /* Chama a classe (AutenticacaoService) que irá realizar o processo de autenticação */
             Authentication authentication = authenticationManager.authenticate(dadosAutenticacao);
 
             /* Gera o token. */
             String token = tokenService.gerarToken(authentication);
 
-            /* Retorna Http Request 200, o token no corpo da mensagem e o tipo de autenticação. */
+            /* Retorna Http Request 200, o token no corpo da requisição e o tipo de autenticação. */
             return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 
         } catch (AuthenticationException e) {

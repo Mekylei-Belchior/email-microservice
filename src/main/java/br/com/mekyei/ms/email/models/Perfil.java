@@ -4,6 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+/**
+ * Classe responsável pela representação do perfil do cliente.
+ */
 @Entity
 @Table(name = "perfis")
 public class Perfil implements GrantedAuthority {

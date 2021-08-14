@@ -3,7 +3,7 @@ package br.com.mekyei.ms.email.dtos;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
- * Trata os dados de acesso do cliente recebidos pelo controller.
+ * Classe responsável pela representação dos dados de acesso do cliente recebidos pelo controller.
  */
 public class CredenciaisDto {
 

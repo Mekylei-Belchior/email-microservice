@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Classe responsável pela representação de um cliente.
+ */
 @Entity
 @Table(name = "clientes")
 public class Cliente implements UserDetails {

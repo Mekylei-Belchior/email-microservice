@@ -1,5 +1,8 @@
 package br.com.mekyei.ms.email.dtos;
 
+/**
+ * Classe responsável por criar uma representação de um token.
+ */
 public class TokenDto {
 
     private String token;
