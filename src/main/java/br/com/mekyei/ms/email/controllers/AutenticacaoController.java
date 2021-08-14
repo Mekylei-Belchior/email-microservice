@@ -3,6 +3,7 @@ package br.com.mekyei.ms.email.controllers;
 import br.com.mekyei.ms.email.configurations.security.TokenService;
 import br.com.mekyei.ms.email.dtos.CredenciaisDto;
 import br.com.mekyei.ms.email.dtos.TokenDto;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/auth")
+@Api(tags = "Autenticação")
 public class AutenticacaoController {
 
     @Autowired

@@ -3,6 +3,7 @@ package br.com.mekyei.ms.email.controllers;
 import br.com.mekyei.ms.email.dtos.EmailDto;
 import br.com.mekyei.ms.email.models.EmailModel;
 import br.com.mekyei.ms.email.services.EmailService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
+@Api(tags = "E-mail")
 public class EmailController {
 
     @Autowired
