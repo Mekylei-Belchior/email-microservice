@@ -27,7 +27,10 @@ Para enviar um e-mail, a API espera uma requisição com um `Bearer token` de au
 dados da mensagem em seu body. Para este caso, a requisição POST pode ser submetida para o endpoint `envia-email`.
 Abaixo um exempolo feito no Postman:
 
-![](img/email.png) 
+![](img/email.png)  
+
+![](img/mensagem.png)
+
   
 #### Monitoramento
 
