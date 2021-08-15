@@ -4,6 +4,8 @@ import br.com.mekyei.ms.email.dtos.EmailDto;
 import br.com.mekyei.ms.email.models.EmailModel;
 import br.com.mekyei.ms.email.services.EmailService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,7 @@ public class EmailController {
      * @return a resposta para o cliente com os dados do e-mail, status de envio e criação.
      */
     @PostMapping("envia-email")
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "Authorization")} )
     public ResponseEntity<EmailModel> enviaEmail(@RequestBody @Valid EmailDto dadosEmail) {
         /* Converte o EmailDto para EmailModel */
         EmailModel email = dadosEmail.toEmail();

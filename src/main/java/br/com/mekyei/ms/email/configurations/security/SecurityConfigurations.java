@@ -68,13 +68,16 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        /* Urls do Swagger que devem ser ignoradas. */
+        /* Urls do Swagger que devem ser ignoradas e dos demais arquivos estáticos. */
         web.ignoring().antMatchers(
-                "/**.html",
                 "/v3/api-docs",
                 "/webjars/**",
                 "/configurations/**",
                 "/swagger-resources/**",
-                "/swagger-ui/**");
+                "/swagger-ui/**",
+                "/favicon.ico",
+                "/**/*.html",
+                "/**/*.css",
+                "/**/*.js");
     }
 }

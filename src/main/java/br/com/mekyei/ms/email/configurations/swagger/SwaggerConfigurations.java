@@ -2,20 +2,17 @@ package br.com.mekyei.ms.email.configurations.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.ParameterType;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 public class SwaggerConfigurations {
@@ -29,31 +26,26 @@ public class SwaggerConfigurations {
     public Docket docket() {
 
         /*
-         * Cria o objeto Decket
+         * Cria o objeto Docket
          */
-        Docket docket = new Docket(DocumentationType.OAS_30)
+
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
                 .tags(
-                        new Tag("Autenticação", "Endpoint para autenticação"),
-                        new Tag("E-mail", "Endpoint para o envio de e-mails")
+                        new Tag("Autenticação", "Endpoint de autenticação"),
+                        new Tag("E-mail", "Endpoint de envio de e-mails")
                 )
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .build()
+                .securitySchemes(Arrays.asList(apiKey()))
                 .forCodeGeneration(true);
-        /*
-         * Adiciona o header para inserir o token de autorização dos endpoints bloqueados.
-         */
-        docket.globalRequestParameters(Arrays.asList(
-                new RequestParameterBuilder()
-                        .name("Authorization")
-                        .description("Bearer e o JWT token")
-                        .required(false)
-                        .in(ParameterType.HEADER)
-                        .accepts(Collections.singleton(MediaType.APPLICATION_JSON))
-                        .build()));
-        return docket;
 
+    }
+
+    /* Token que autentica o cliente. */
+    private ApiKey apiKey() {
+        return new ApiKey("Authorization", "Token", "header");
     }
 
     /*
