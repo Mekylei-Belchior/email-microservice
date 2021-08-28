@@ -20,7 +20,7 @@ public class TokenService {
     @Value("${email.jwt.secret}")
     private String secret;
 
-    /* Inteja a quantidade de milisegundos contido na propriedade do application.properties. */
+    /* Injeta a quantidade de milisegundos contido na propriedade do application.properties. */
     @Value("${email.jwt.expiration}")
     private String expiration;
 

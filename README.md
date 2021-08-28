@@ -1,13 +1,13 @@
 # E-MAIL MICROSERVICE
 
-Microserviço para envio de e-mails com arquitetura REST.
+Microserviço para envio de e-mails com arquitetura REST e mensageria.
 
 ## DESCRIÇÃO
 
 Um simples microserviço desenvolvido em Java 11 utilizando Spring Boot, Spring Mail, Spring Security e MariaDB.
 O serviço disponibiliza dois endpoints, um para a autenticação do cliente e o outro para o envio de email via SMTP
 do Gmail. Para o monitoramento da aplicação foi utilizado o Spring Actuator e para a documentação o Springfox com o
-Swagger.  
+Swagger. A aplicação trabalha com comunicação sincrona via HTTP REST e assíncrona com mensageria utilizando o RabbitMQ.
 
 ## ENDPOINTS
 
@@ -27,19 +27,18 @@ Para enviar um e-mail, a API espera uma requisição com um `Bearer token` de au
 dados da mensagem em seu body. Para este caso, a requisição POST pode ser submetida para o endpoint `envia-email`.
 Abaixo um exempolo feito no Postman:
 
-![](img/email.png)  
+![](img/postman.png)  
 
 ![](img/mensagem.png)
 
-  
 #### Monitoramento
 
-O monitoramento da API do microserviço é feito com o Spring Actuator ao qual pode ser integrado com o Spring Admin, por 
+O monitoramento da API do microserviço é feito com o Spring Actuator ao qual pode ser integrado com o Spring Admin, por
 exemplo, para exibir as informações da aplicação via página web. O endpoint principal do Actuator é o `actuator`, ao
 qual espera uma requisição GET com um `Bearer token` de autenticação em seu Header. A API devolve um JSON com todos os
 endpoints que disponibilizam as informações da API.
- 
- ![](img/actuator.png)
+
+![](img/actuator.png)
 
 ## DOCUMENTAÇÃO
 
@@ -48,3 +47,11 @@ os principais endponts da aplicação. É possível acessar a página através d
 e testar os dois endpoints principais.
 
 ![](img/swagger.png)
+
+## MENSAGERIA
+
+Com o serviço da CloudAMQP, foi implementado a comunicação assíncrona utilizando os recursos do RabbitMQ.
+
+![](img/rabbitmq.png)
+
+![](img/email-mensageria.png)
