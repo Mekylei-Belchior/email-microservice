@@ -5,14 +5,16 @@ import br.com.mekyei.ms.email.enums.StatusEmail;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "emails")
 public class EmailModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    @Column(name = "id")
+    private UUID id;
     private String proprietario;
     private String remetente;
     private String destinatario;
@@ -40,11 +42,11 @@ public class EmailModel {
         this.conteudo = conteudo;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
